@@ -30,6 +30,7 @@
     "required": [
         "TomatoCms",
         "TomatoCrm",
+        "TomatoThemes",
         "TomatoSupport",
         "TomatoSettings"
     ]
