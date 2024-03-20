@@ -23,7 +23,7 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4 text-center lg:grid-cols-3 sm:grid-cols-2">
-            @php $features = \Modules\TomatoCms\App\Models\Feature::whereIn('id', $section['features'] ?? [])->get(); @endphp
+            @php $features = \Modules\TomatoThemes\App\Models\Feature::whereIn('id', $section['features'] ?? [])->get(); @endphp
             @foreach($features as $feature)
                 <div class="
                 bg-white

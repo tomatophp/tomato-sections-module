@@ -16,7 +16,7 @@
         choices
         label="{{__('Features')}}"
         name="features"
-        :options="\Modules\TomatoCms\App\Models\Feature::all()"
+        :options="\Modules\TomatoThemes\App\Models\Feature::all()"
         option-label="title"
         option-value="id"
         multiple

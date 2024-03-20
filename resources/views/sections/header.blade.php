@@ -27,7 +27,7 @@
 
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-4">
-                    <x-splade-form method="GET" action="{{url('shop')}}" class="hidden lg:block relative border border-gray-500 rounded-full" :default="['search' => request()->search ?? '']">
+                    <x-splade-form method="GET" action="{{\Module::find('TomatoEcommerce')->isEnabled() ? url('shop') : url('blog')}}" class="hidden lg:block relative border border-gray-500 rounded-full" :default="['search' => request()->search ?? '']">
                         <label class="sr-only" for="search"> {{__('Search')}} </label>
 
                         <input
@@ -61,7 +61,8 @@
                         </button>
                     </x-splade-form>
 
-                    <x-splade-link
+                    @if(\Module::find('TomatoEcommerce')->isEnabled())
+                     <x-splade-link
                         modal
                         :href="route('cart.cart')"
                         class="block shrink-0 rounded-full border border-gray-500 p-2 text-gray-600 shadow-sm hover:text-gray-700 relative group"
@@ -79,9 +80,10 @@
                             <i class="bx bxs-cart text-lg"></i>
                         </div>
                     </x-splade-link>
-
+                    @endif
 
                     @if(auth('accounts')->user())
+                        @if(\Module::find('TomatoEcommerce')->isEnabled())
                         <x-splade-link
                             modal
                             :href="route('profile.wishlist.index')"
@@ -100,7 +102,9 @@
                                 <i class="bx bxs-heart text-md"></i>
                             </div>
                         </x-splade-link>
+                        @endif
 
+                        @if(\Module::find('TomatoNotifications')->isEnabled())
                         <x-splade-link
                             modal
                             :href="route('profile.notifications.index')"
@@ -119,6 +123,7 @@
                                 <i class="bx bxs-bell text-md"></i>
                             </div>
                         </x-splade-link>
+                            @endif
                     @endif
                 </div>
 
@@ -150,8 +155,10 @@
                         </x-slot:button>
 
                         <x-tomato-admin-dropdown-item icon="bx bxs-user" type="link" label="{{__('Profile')}}" :href="route('profile.index')" />
-                        <x-tomato-admin-dropdown-item warning icon="bx bxs-map" type="link" label="{{__('Address')}}" :href="route('profile.address.index')" />
-                        <x-tomato-admin-dropdown-item warning icon="bx bxs-rocket" type="link" label="{{__('Orders')}}" :href="route('profile.orders.index')" />
+                        @if(\Module::find('TomatoEcommerce')->isEnabled())
+                            <x-tomato-admin-dropdown-item warning icon="bx bxs-map" type="link" label="{{__('Address')}}" :href="route('profile.address.index')" />
+                            <x-tomato-admin-dropdown-item warning icon="bx bxs-rocket" type="link" label="{{__('Orders')}}" :href="route('profile.orders.index')" />
+                        @endif
                         <x-tomato-admin-dropdown-item success icon="bx bxs-wallet" type="link" label="{{__('Wallet')}}" :href="route('profile.wallet.index')" />
                         <x-tomato-admin-dropdown-item icon="bx bxs-cog" type="link" label="{{__('Settings')}}" :href="route('profile.edit')" />
                         <x-tomato-admin-dropdown-item danger icon="bx bxs-user" type="link" label="{{__('Logout')}}" :href="route('profile.logout')" />
