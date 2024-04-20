@@ -43,6 +43,11 @@ class TomatoSectionsServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/migrations'));
 
+        //Register generate command
+        $this->commands([
+            \Modules\TomatoSections\App\Console\TomatoSectionsInstall::class,
+        ]);
+
         TomatoThemes::registerSection(new TomatoAboutFeaturesSection());
         TomatoThemes::registerSection(new TomatoBlogSection());
         TomatoThemes::registerSection(new TomatoCategorySection());
